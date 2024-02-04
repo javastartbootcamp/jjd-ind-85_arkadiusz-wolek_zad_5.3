@@ -1,20 +1,20 @@
 package pl.javastart.task;
 
 public class ProductServices {
-    private static double basicVatRate = 23.0;
-    private static double loweredVatRate = 8.0;
-    private static double zeroVatRate = 0.0;
+    private static final double BASIC_VAT_RATE = 23.0;
+    private static final double LOWERED_VAT_RATE = 8.0;
+    private static final double ZERO_VAT_RATE = 0.0;
 
     public static double getGrossPrice(Product product) {
         double vatRate;
-        if (product.getCategory() != null ) {
+        if (product.getCategory() != null) {
             vatRate = switch (product.getCategory()) {
-                case "owoce", "mięso" -> zeroVatRate;
-                case "woda", "książki" -> loweredVatRate;
-                default -> basicVatRate;
+                case "owoce", "mięso" -> ZERO_VAT_RATE;
+                case "woda", "książki" -> LOWERED_VAT_RATE;
+                default -> BASIC_VAT_RATE;
             };
         } else {
-            vatRate = basicVatRate;
+            vatRate = BASIC_VAT_RATE;
         }
         return (Math.round((product.getNetPrice() * (1.0 + vatRate / 100.0)) * 100.0) / 100.0);
     }
